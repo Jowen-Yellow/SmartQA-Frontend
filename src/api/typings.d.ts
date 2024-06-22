@@ -719,6 +719,7 @@ declare namespace API {
   type UserAnswerAddRequest = {
     appId?: number;
     choices?: string[];
+    id?: number;
     userId?: number;
   };
 
@@ -755,7 +756,7 @@ declare namespace API {
 
   type UserAnswerVO = {
     appId?: number;
-    appType?: "SCORING" | "TEST";
+    appType?: 'SCORING' | 'TEST';
     choices?: string[];
     createTime?: string;
     id?: number;
@@ -764,7 +765,7 @@ declare namespace API {
     resultName?: string;
     resultPicture?: string;
     resultScore?: number;
-    scoringStrategy?: "CUSTOM" | "AI";
+    scoringStrategy?: 'CUSTOM' | 'AI';
     updateTime?: string;
     user?: UserVO;
     userId?: number;

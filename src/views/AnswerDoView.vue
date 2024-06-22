@@ -53,13 +53,16 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, withDefaults, defineProps, watchEffect } from "vue";
+import { defineProps, reactive, ref, watchEffect, withDefaults } from "vue";
 import API from "@/api";
 import { listQuestionVoByPageUsingPost } from "@/api/questionController";
 import { Message } from "@arco-design/web-vue";
 import { getAppVoByIdUsingGet } from "@/api/appController";
 import { useRouter } from "vue-router";
-import { addUserAnswerUsingPost } from "@/api/userAnswerController";
+import {
+  addUserAnswerUsingPost,
+  generateUserAnswerIdUsingGet,
+} from "@/api/userAnswerController";
 
 const router = useRouter();
 
@@ -80,11 +83,15 @@ const currentAnswer = ref<string>();
 // 用户答案列表
 const answerList = reactive<string[]>([]);
 
+// id
+const id = ref<number>();
+
 const checkResult = async () => {
   loading.value = true;
   const res = await addUserAnswerUsingPost({
     appId: props.appId,
     choices: answerList,
+    id: id.value,
   });
   if (res.data.code === 0) {
     await router.push({
@@ -130,6 +137,18 @@ const loadQuestion = async () => {
   }
 };
 
+const generateId = async () => {
+  const res = await generateUserAnswerIdUsingGet();
+  if (res.data.code === 0) {
+    id.value = res.data.data;
+  } else {
+    Message.error(("获取用户答案id失败：" + id.data.message) as string);
+  }
+};
+
+watchEffect(() => {
+  generateId();
+});
 watchEffect(() => {
   loadData();
 });
