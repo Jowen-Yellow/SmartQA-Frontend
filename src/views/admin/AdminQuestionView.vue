@@ -55,11 +55,8 @@ import { ref, watchEffect } from "vue";
 import API from "@/api";
 import { Message } from "@arco-design/web-vue";
 import dayjs from "dayjs";
+import { deleteQuestion, listQuestionByPage } from "@/api/questionController";
 import Question = API.Question;
-import {
-  deleteQuestionUsingPost,
-  listQuestionByPageUsingPost,
-} from "@/api/questionController";
 
 // 搜索
 const searchForm = ref<API.QuestionQueryRequest>({
@@ -82,7 +79,7 @@ const dataList = ref<Question[]>();
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listQuestionByPageUsingPost(searchParams.value);
+  const res = await listQuestionByPage(searchParams.value);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = Number(res.data.data?.total) || 0;
@@ -92,7 +89,7 @@ const loadData = async () => {
 };
 
 const doDelete = async (id: number) => {
-  const res = await deleteQuestionUsingPost({ id });
+  const res = await deleteQuestion({ id });
   if (res.data.code === 0) {
     Message.success("删除成功");
     loadData().then((r) => r);

@@ -2,12 +2,12 @@
 /* eslint-disable */
 import request from '@/utils/request';
 
-/** addUserAnswer POST /api/userAnswer/add */
-export async function addUserAnswerUsingPost(
+/** 此处后端没有提供注释 POST /userAnswer/add */
+export async function addUserAnswer(
   body: API.UserAnswerAddRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseLong_>('/api/userAnswer/add', {
+  return request<API.BaseResponseLong>('/userAnswer/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,12 +17,9 @@ export async function addUserAnswerUsingPost(
   });
 }
 
-/** deleteUserAnswer POST /api/userAnswer/delete */
-export async function deleteUserAnswerUsingPost(
-  body: API.DeleteRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponseBoolean_>('/api/userAnswer/delete', {
+/** 此处后端没有提供注释 POST /userAnswer/delete */
+export async function deleteUserAnswer(body: API.DeleteRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponseBoolean>('/userAnswer/delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,12 +29,12 @@ export async function deleteUserAnswerUsingPost(
   });
 }
 
-/** editUserAnswer POST /api/userAnswer/edit */
-export async function editUserAnswerUsingPost(
+/** 此处后端没有提供注释 POST /userAnswer/edit */
+export async function editUserAnswer(
   body: API.UserAnswerEditRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/userAnswer/edit', {
+  return request<API.BaseResponseBoolean>('/userAnswer/edit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -47,21 +44,21 @@ export async function editUserAnswerUsingPost(
   });
 }
 
-/** generateUserAnswerId GET /api/userAnswer/generate/id */
-export async function generateUserAnswerIdUsingGet(options?: { [key: string]: any }) {
-  return request<API.BaseResponseLong_>('/api/userAnswer/generate/id', {
+/** 此处后端没有提供注释 GET /userAnswer/generate/id */
+export async function generateUserAnswerId(options?: { [key: string]: any }) {
+  return request<API.BaseResponseLong>('/userAnswer/generate/id', {
     method: 'GET',
     ...(options || {}),
   });
 }
 
-/** getUserAnswerVOById GET /api/userAnswer/get/vo */
-export async function getUserAnswerVoByIdUsingGet(
+/** 此处后端没有提供注释 GET /userAnswer/get/vo */
+export async function getUserAnswerVoById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getUserAnswerVOByIdUsingGETParams,
+  params: API.getUserAnswerVOByIdParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseUserAnswerVO_>('/api/userAnswer/get/vo', {
+  return request<API.BaseResponseUserAnswerVO>('/userAnswer/get/vo', {
     method: 'GET',
     params: {
       ...params,
@@ -70,12 +67,12 @@ export async function getUserAnswerVoByIdUsingGet(
   });
 }
 
-/** listUserAnswerByPage POST /api/userAnswer/list/page */
-export async function listUserAnswerByPageUsingPost(
+/** 此处后端没有提供注释 POST /userAnswer/list/page */
+export async function listUserAnswerByPage(
   body: API.UserAnswerQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageUserAnswer_>('/api/userAnswer/list/page', {
+  return request<API.BaseResponsePageUserAnswer>('/userAnswer/list/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -85,12 +82,12 @@ export async function listUserAnswerByPageUsingPost(
   });
 }
 
-/** listUserAnswerVOByPage POST /api/userAnswer/list/page/vo */
-export async function listUserAnswerVoByPageUsingPost(
+/** 此处后端没有提供注释 POST /userAnswer/list/page/vo */
+export async function listUserAnswerVoByPage(
   body: API.UserAnswerQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageUserAnswerVO_>('/api/userAnswer/list/page/vo', {
+  return request<API.BaseResponsePageUserAnswerVO>('/userAnswer/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -100,12 +97,12 @@ export async function listUserAnswerVoByPageUsingPost(
   });
 }
 
-/** listMyUserAnswerVOByPage POST /api/userAnswer/my/list/page/vo */
-export async function listMyUserAnswerVoByPageUsingPost(
+/** 此处后端没有提供注释 POST /userAnswer/my/list/page/vo */
+export async function listMyUserAnswerVoByPage(
   body: API.UserAnswerQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageUserAnswerVO_>('/api/userAnswer/my/list/page/vo', {
+  return request<API.BaseResponsePageUserAnswerVO>('/userAnswer/my/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -115,12 +112,12 @@ export async function listMyUserAnswerVoByPageUsingPost(
   });
 }
 
-/** updateUserAnswer POST /api/userAnswer/update */
-export async function updateUserAnswerUsingPost(
+/** 此处后端没有提供注释 POST /userAnswer/update */
+export async function updateUserAnswer(
   body: API.UserAnswerUpdateRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/userAnswer/update', {
+  return request<API.BaseResponseBoolean>('/userAnswer/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -49,11 +49,10 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import API from "@/api";
-import { userRegisterUsingPost } from "@/api/userController";
 import { useLoginUserStore } from "@/store/userStore";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
+import { userRegister } from "@/api/userController";
 
 const router = useRouter();
 const loginUserStore = useLoginUserStore();
@@ -62,9 +61,10 @@ const form = reactive({
   userAccount: "",
   userPassword: "",
   checkPassword: "",
+  // eslint-disable-next-line no-undef
 } as API.UserRegisterRequest);
 const handleSubmit = async () => {
-  const res = await userRegisterUsingPost(form);
+  const res = await userRegister(form);
   if (res.data.code === 0) {
     loginUserStore.fetchLoginUser().then(() => {
       Message.success("注册成功");

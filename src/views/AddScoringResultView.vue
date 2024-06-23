@@ -112,14 +112,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  defineProps,
-  reactive,
-  ref,
-  watchEffect,
-  withDefaults,
-} from "vue";
+import { defineProps, ref, watchEffect, withDefaults } from "vue";
 import API from "@/api";
 import {
   Message,
@@ -129,10 +122,10 @@ import {
 import { useRouter } from "vue-router";
 
 import {
-  addScoringResultUsingPost,
-  deleteScoringResultUsingPost,
-  editScoringResultUsingPost,
-  listScoringResultVoByPageUsingPost,
+  addScoringResult,
+  deleteScoringResult,
+  editScoringResult,
+  listScoringResultVoByPage,
 } from "@/api/scoringResultController";
 
 const router = useRouter();
@@ -153,13 +146,13 @@ const handleSave = async (record: API.ScoringResultVO, rowIndex: number) => {
   let res;
   if (!record.id) {
     // 创建
-    res = await addScoringResultUsingPost({
+    res = await addScoringResult({
       appId: props.id,
       ...record,
     });
   } else {
     // 修改
-    res = await editScoringResultUsingPost({
+    res = await editScoringResult({
       appId: props.id,
       ...record,
     });
@@ -177,7 +170,7 @@ const handleDelete = async (id: number, rowIndex: number) => {
     data.value.splice(rowIndex, 1);
     return;
   }
-  const res = await deleteScoringResultUsingPost({ id });
+  const res = await deleteScoringResult({ id });
   if (res.data.code === 0) {
     Message.success("删除成功");
     loadData().then((r) => r);
@@ -211,7 +204,7 @@ const props = withDefaults(defineProps<Props>(), {});
 
 const loadData = async () => {
   if (!props.id) return;
-  const res = await listScoringResultVoByPageUsingPost({
+  const res = await listScoringResultVoByPage({
     appId: props.id,
     ...pagination.value,
   });

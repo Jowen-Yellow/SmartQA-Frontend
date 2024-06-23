@@ -46,10 +46,10 @@
 import { ref, watchEffect } from "vue";
 import API from "@/api";
 import { Message } from "@arco-design/web-vue";
-import { listAppVoByPageUsingPost } from "@/api/appController";
 import { ReviewStatusEnum } from "@/constant/app";
 import AppCard from "@/components/AppCard.vue";
-import App = API.App;
+import { listAppVoByPage } from "@/api/appController";
+import AppVO = API.AppVO;
 
 // 搜索
 const searchForm = ref<API.AppQueryRequest>({
@@ -68,11 +68,11 @@ const searchParams = ref<API.AppQueryRequest>({
   current: 1,
   pageSize: 12,
 });
-const dataList = ref<App[]>();
+const dataList = ref<AppVO[]>();
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listAppVoByPageUsingPost({
+  const res = await listAppVoByPage({
     ...searchParams.value,
     reviewStatus: ReviewStatusEnum.PASS,
   });

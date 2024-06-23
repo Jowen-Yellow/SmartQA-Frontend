@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { getLoginUserUsingGet } from "@/api/userController";
+import { getLoginUser } from "@/api/userController";
 import { AccessEnum } from "@/access/accessEnum";
 
 /**
@@ -16,7 +16,7 @@ export const useLoginUserStore = defineStore("counter", () => {
   }
 
   async function fetchLoginUser() {
-    const res = await getLoginUserUsingGet();
+    const res = await getLoginUser();
     if (res.data.code === 0 && res.data.data) {
       setLoginUser(res.data.data);
     } else {

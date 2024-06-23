@@ -2,7 +2,7 @@ import axios from "axios";
 import errorCode from "@/utils/errorCode";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8101",
+  baseURL: "http://localhost:8101/api",
   timeout: 30000,
   withCredentials: true,
 });

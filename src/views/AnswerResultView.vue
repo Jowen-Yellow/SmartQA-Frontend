@@ -41,11 +41,11 @@
 
 <script setup lang="ts">
 import { Message } from "@arco-design/web-vue";
-import { withDefaults, defineProps, ref, watchEffect, computed } from "vue";
+import { computed, defineProps, ref, watchEffect, withDefaults } from "vue";
 import API from "@/api";
 import { useLoginUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
-import { getUserAnswerVoByIdUsingGet } from "@/api/userAnswerController";
+import { getUserAnswerVoById } from "@/api/userAnswerController";
 
 const router = useRouter();
 
@@ -68,7 +68,7 @@ const isOwner = computed(() => {
 });
 
 const loadData = async () => {
-  const res = await getUserAnswerVoByIdUsingGet({ id: props.id });
+  const res = await getUserAnswerVoById({ id: props.id });
   if (res.data.code === 0) {
     data.value = res.data.data || {};
   } else {

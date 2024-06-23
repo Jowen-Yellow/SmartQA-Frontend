@@ -1,244 +1,264 @@
 declare namespace API {
   type AiGenerateQuestionRequest = {
     appId?: number;
-    optionNumber?: number;
     questionNumber?: number;
+    optionNumber?: number;
   };
 
-  type aiGenerateQuestionSSEUsingGETParams = {
-    appId?: number;
-    optionNumber?: number;
-    questionNumber?: number;
+  type aiGenerateQuestionSSEParams = {
+    aiGenerateQuestionRequest: AiGenerateQuestionRequest;
   };
 
   type App = {
-    appDesc?: string;
+    id: number;
+    appName: string;
+    appDesc: string;
     appIcon?: string;
-    appName?: string;
-    appType?: number;
-    createTime?: string;
-    id?: number;
-    isDelete?: number;
-    reviewMessage?: string;
+    appType: number;
+    scoringStrategy: number;
     reviewStatus?: number;
-    reviewTime?: string;
+    reviewMessage?: string;
     reviewerId?: number;
-    scoringStrategy?: number;
-    updateTime?: string;
+    reviewTime?: string;
     userId?: number;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
   };
 
   type AppAddRequest = {
+    appName?: string;
     appDesc?: string;
     appIcon?: string;
-    appName?: string;
     appType?: number;
     scoringStrategy?: number;
   };
 
+  type AppAnswerCountDTO = {
+    appId?: number;
+    answerCount?: number;
+  };
+
+  type AppAnswerResultCountDTO = {
+    resultName?: string;
+    resultCount?: number;
+  };
+
   type AppEditRequest = {
+    id?: number;
+    appName?: string;
     appDesc?: string;
     appIcon?: string;
-    appName?: string;
     appType?: number;
-    id?: number;
     scoringStrategy?: number;
   };
 
   type AppQueryRequest = {
-    appDesc?: string;
-    appIcon?: string;
-    appName?: string;
-    appType?: number;
     current?: number;
-    id?: number;
-    notId?: number;
     pageSize?: number;
-    reviewMessage?: string;
-    reviewStatus?: number;
-    reviewerId?: number;
-    scoringStrategy?: number;
-    searchText?: string;
     sortField?: string;
     sortOrder?: string;
+    id?: number;
+    appName?: string;
+    appDesc?: string;
+    appIcon?: string;
+    appType?: number;
+    scoringStrategy?: number;
+    reviewStatus?: number;
+    reviewMessage?: string;
+    reviewerId?: number;
     userId?: number;
+    notId?: number;
+    searchText?: string;
   };
 
   type AppUpdateRequest = {
+    id?: number;
+    appName?: string;
     appDesc?: string;
     appIcon?: string;
-    appName?: string;
     appType?: number;
-    id?: number;
-    reviewMessage?: string;
-    reviewStatus?: number;
-    reviewTime?: string;
-    reviewerId?: number;
     scoringStrategy?: number;
+    reviewStatus?: number;
+    reviewMessage?: string;
+    reviewerId?: number;
+    reviewTime?: string;
   };
 
   type AppVO = {
+    id?: number;
+    appName?: string;
     appDesc?: string;
     appIcon?: string;
-    appName?: string;
     appType?: number;
-    createTime?: string;
-    id?: number;
-    reviewMessage?: string;
-    reviewStatus?: number;
-    reviewTime?: string;
-    reviewerId?: number;
     scoringStrategy?: number;
+    reviewStatus?: number;
+    reviewMessage?: string;
+    reviewerId?: number;
+    reviewTime?: string;
+    userId?: number;
+    createTime?: string;
     updateTime?: string;
     user?: UserVO;
-    userId?: number;
   };
 
-  type BaseResponseAppVO_ = {
+  type BaseResponseAppVO = {
     code?: number;
     data?: AppVO;
     message?: string;
   };
 
-  type BaseResponseBoolean_ = {
+  type BaseResponseBoolean = {
     code?: number;
     data?: boolean;
     message?: string;
   };
 
-  type BaseResponseInt_ = {
+  type BaseResponseInteger = {
     code?: number;
     data?: number;
     message?: string;
   };
 
-  type BaseResponseListQuestionContentDTO_ = {
+  type BaseResponseListAppAnswerCountDTO = {
+    code?: number;
+    data?: AppAnswerCountDTO[];
+    message?: string;
+  };
+
+  type BaseResponseListAppAnswerResultCountDTO = {
+    code?: number;
+    data?: AppAnswerResultCountDTO[];
+    message?: string;
+  };
+
+  type BaseResponseListQuestionContentDTO = {
     code?: number;
     data?: QuestionContentDTO[];
     message?: string;
   };
 
-  type BaseResponseLoginUserVO_ = {
+  type BaseResponseLoginUserVO = {
     code?: number;
     data?: LoginUserVO;
     message?: string;
   };
 
-  type BaseResponseLong_ = {
+  type BaseResponseLong = {
     code?: number;
     data?: number;
     message?: string;
   };
 
-  type BaseResponsePageApp_ = {
+  type BaseResponsePageApp = {
     code?: number;
-    data?: PageApp_;
+    data?: PageApp;
     message?: string;
   };
 
-  type BaseResponsePageAppVO_ = {
+  type BaseResponsePageAppVO = {
     code?: number;
-    data?: PageAppVO_;
+    data?: PageAppVO;
     message?: string;
   };
 
-  type BaseResponsePagePost_ = {
+  type BaseResponsePagePost = {
     code?: number;
-    data?: PagePost_;
+    data?: PagePost;
     message?: string;
   };
 
-  type BaseResponsePagePostVO_ = {
+  type BaseResponsePagePostVO = {
     code?: number;
-    data?: PagePostVO_;
+    data?: PagePostVO;
     message?: string;
   };
 
-  type BaseResponsePageQuestion_ = {
+  type BaseResponsePageQuestion = {
     code?: number;
-    data?: PageQuestion_;
+    data?: PageQuestion;
     message?: string;
   };
 
-  type BaseResponsePageQuestionVO_ = {
+  type BaseResponsePageQuestionVO = {
     code?: number;
-    data?: PageQuestionVO_;
+    data?: PageQuestionVO;
     message?: string;
   };
 
-  type BaseResponsePageScoringResult_ = {
+  type BaseResponsePageScoringResult = {
     code?: number;
-    data?: PageScoringResult_;
+    data?: PageScoringResult;
     message?: string;
   };
 
-  type BaseResponsePageScoringResultVO_ = {
+  type BaseResponsePageScoringResultVO = {
     code?: number;
-    data?: PageScoringResultVO_;
+    data?: PageScoringResultVO;
     message?: string;
   };
 
-  type BaseResponsePageUser_ = {
+  type BaseResponsePageUser = {
     code?: number;
-    data?: PageUser_;
+    data?: PageUser;
     message?: string;
   };
 
-  type BaseResponsePageUserAnswer_ = {
+  type BaseResponsePageUserAnswer = {
     code?: number;
-    data?: PageUserAnswer_;
+    data?: PageUserAnswer;
     message?: string;
   };
 
-  type BaseResponsePageUserAnswerVO_ = {
+  type BaseResponsePageUserAnswerVO = {
     code?: number;
-    data?: PageUserAnswerVO_;
+    data?: PageUserAnswerVO;
     message?: string;
   };
 
-  type BaseResponsePageUserVO_ = {
+  type BaseResponsePageUserVO = {
     code?: number;
-    data?: PageUserVO_;
+    data?: PageUserVO;
     message?: string;
   };
 
-  type BaseResponsePostVO_ = {
+  type BaseResponsePostVO = {
     code?: number;
     data?: PostVO;
     message?: string;
   };
 
-  type BaseResponseQuestionVO_ = {
+  type BaseResponseQuestionVO = {
     code?: number;
     data?: QuestionVO;
     message?: string;
   };
 
-  type BaseResponseScoringResultVO_ = {
+  type BaseResponseScoringResultVO = {
     code?: number;
     data?: ScoringResultVO;
     message?: string;
   };
 
-  type BaseResponseString_ = {
+  type BaseResponseString = {
     code?: number;
     data?: string;
     message?: string;
   };
 
-  type BaseResponseUser_ = {
+  type BaseResponseUser = {
     code?: number;
     data?: User;
     message?: string;
   };
 
-  type BaseResponseUserAnswerVO_ = {
+  type BaseResponseUserAnswerVO = {
     code?: number;
     data?: UserAnswerVO;
     message?: string;
   };
 
-  type BaseResponseUserVO_ = {
+  type BaseResponseUserVO = {
     code?: number;
     data?: UserVO;
     message?: string;
@@ -248,243 +268,252 @@ declare namespace API {
     id?: number;
   };
 
-  type getAppVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getAppAnswerResultCountParams = {
+    appId: number;
   };
 
-  type getPostVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getAppVOByIdParams = {
+    id: number;
   };
 
-  type getQuestionVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getPostVOByIdParams = {
+    id: number;
   };
 
-  type getScoringResultVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getQuestionVOByIdParams = {
+    id: number;
   };
 
-  type getUserAnswerVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getScoringResultVOByIdParams = {
+    id: number;
   };
 
-  type getUserByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getUserAnswerVOByIdParams = {
+    id: number;
   };
 
-  type getUserVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
+  type getUserByIdParams = {
+    id: number;
+  };
+
+  type getUserVOByIdParams = {
+    id: number;
   };
 
   type LoginUserVO = {
-    createTime?: string;
     id?: number;
-    updateTime?: string;
-    userAvatar?: string;
     userName?: string;
+    userAvatar?: string;
     userProfile?: string;
     userRole?: string;
+    createTime?: string;
+    updateTime?: string;
   };
 
   type Option = {
-    key?: string;
     result?: string;
     score?: number;
     value?: string;
+    key?: string;
   };
 
   type OrderItem = {
-    asc?: boolean;
     column?: string;
+    asc?: boolean;
   };
 
-  type PageApp_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageApp = {
     records?: App[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageApp;
+    searchCount?: PageApp;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageAppVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageAppVO = {
     records?: AppVO[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageAppVO;
+    searchCount?: PageAppVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PagePost_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PagePost = {
     records?: Post[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PagePost;
+    searchCount?: PagePost;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PagePostVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PagePostVO = {
     records?: PostVO[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PagePostVO;
+    searchCount?: PagePostVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageQuestion_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageQuestion = {
     records?: Question[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageQuestion;
+    searchCount?: PageQuestion;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageQuestionVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageQuestionVO = {
     records?: QuestionVO[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageQuestionVO;
+    searchCount?: PageQuestionVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageScoringResult_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageScoringResult = {
     records?: ScoringResult[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageScoringResult;
+    searchCount?: PageScoringResult;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageScoringResultVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageScoringResultVO = {
     records?: ScoringResultVO[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageScoringResultVO;
+    searchCount?: PageScoringResultVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageUser_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageUser = {
     records?: User[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageUser;
+    searchCount?: PageUser;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageUserAnswer_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageUserAnswer = {
     records?: UserAnswer[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageUserAnswer;
+    searchCount?: PageUserAnswer;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageUserAnswerVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageUserAnswerVO = {
     records?: UserAnswerVO[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageUserAnswerVO;
+    searchCount?: PageUserAnswerVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
-  type PageUserVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
+  type PageUserVO = {
     records?: UserVO[];
-    searchCount?: boolean;
-    size?: number;
     total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageUserVO;
+    searchCount?: PageUserVO;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
   };
 
   type Post = {
-    content?: string;
-    createTime?: string;
-    favourNum?: number;
     id?: number;
-    isDelete?: number;
+    title?: string;
+    content?: string;
     tags?: string;
     thumbNum?: number;
-    title?: string;
-    updateTime?: string;
+    favourNum?: number;
     userId?: number;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
   };
 
   type PostAddRequest = {
+    title?: string;
     content?: string;
     tags?: string[];
-    title?: string;
   };
 
   type PostEditRequest = {
-    content?: string;
     id?: number;
-    tags?: string[];
     title?: string;
+    content?: string;
+    tags?: string[];
   };
 
   type PostFavourAddRequest = {
@@ -494,26 +523,26 @@ declare namespace API {
   type PostFavourQueryRequest = {
     current?: number;
     pageSize?: number;
-    postQueryRequest?: PostQueryRequest;
     sortField?: string;
     sortOrder?: string;
+    postQueryRequest?: PostQueryRequest;
     userId?: number;
   };
 
   type PostQueryRequest = {
-    content?: string;
     current?: number;
-    favourUserId?: number;
-    id?: number;
-    notId?: number;
-    orTags?: string[];
     pageSize?: number;
-    searchText?: string;
     sortField?: string;
     sortOrder?: string;
-    tags?: string[];
+    id?: number;
+    notId?: number;
+    searchText?: string;
     title?: string;
+    content?: string;
+    tags?: string[];
+    orTags?: string[];
     userId?: number;
+    favourUserId?: number;
   };
 
   type PostThumbAddRequest = {
@@ -521,46 +550,46 @@ declare namespace API {
   };
 
   type PostUpdateRequest = {
-    content?: string;
     id?: number;
-    tags?: string[];
     title?: string;
+    content?: string;
+    tags?: string[];
   };
 
   type PostVO = {
-    content?: string;
-    createTime?: string;
-    favourNum?: number;
-    hasFavour?: boolean;
-    hasThumb?: boolean;
     id?: number;
-    tagList?: string[];
-    thumbNum?: number;
     title?: string;
-    updateTime?: string;
-    user?: UserVO;
+    content?: string;
+    thumbNum?: number;
+    favourNum?: number;
     userId?: number;
+    createTime?: string;
+    updateTime?: string;
+    tagList?: string[];
+    user?: UserVO;
+    hasThumb?: boolean;
+    hasFavour?: boolean;
   };
 
   type Question = {
-    appId?: number;
-    createTime?: string;
-    id?: number;
-    isDelete?: number;
-    questionContent?: string;
-    updateTime?: string;
+    id: number;
+    questionContent: string;
+    appId: number;
     userId?: number;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
   };
 
   type QuestionAddRequest = {
-    appId?: number;
     questionContent?: QuestionContentDTO[];
+    appId?: number;
     userId?: number;
   };
 
   type QuestionContentDTO = {
-    options?: Option[];
     title?: string;
+    options?: Option[];
   };
 
   type QuestionEditRequest = {
@@ -569,16 +598,16 @@ declare namespace API {
   };
 
   type QuestionQueryRequest = {
-    appId?: number;
     current?: number;
-    id?: number;
-    notId?: number;
     pageSize?: number;
-    questionContent?: string;
-    searchText?: string;
     sortField?: string;
     sortOrder?: string;
+    id?: number;
+    questionContent?: string;
+    appId?: number;
     userId?: number;
+    notId?: number;
+    searchText?: string;
   };
 
   type QuestionUpdateRequest = {
@@ -587,188 +616,192 @@ declare namespace API {
   };
 
   type QuestionVO = {
-    appId?: number;
-    createTime?: string;
     id?: number;
     questionContent?: QuestionContentDTO[];
+    appId?: number;
+    userId?: number;
+    createTime?: string;
     updateTime?: string;
     user?: UserVO;
-    userId?: number;
   };
 
   type ScoringResult = {
-    appId?: number;
-    createTime?: string;
-    id?: number;
-    isDelete?: number;
+    id: number;
+    resultName: string;
     resultDesc?: string;
-    resultName?: string;
     resultPicture?: string;
     resultProp?: string;
     resultScoreRange?: number;
-    updateTime?: string;
+    appId: number;
     userId?: number;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
   };
 
   type ScoringResultAddRequest = {
-    appId?: number;
-    resultDesc?: string;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultProp?: string[];
     resultScoreRange?: number;
+    appId?: number;
     userId?: number;
   };
 
   type ScoringResultEditRequest = {
     id?: number;
-    resultDesc?: string;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultProp?: string[];
     resultScoreRange?: number;
   };
 
   type ScoringResultQueryRequest = {
-    appId?: number;
     current?: number;
-    id?: number;
-    notId?: number;
     pageSize?: number;
-    resultDesc?: string;
+    sortField?: string;
+    sortOrder?: string;
+    id?: number;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultProp?: string;
     resultScoreRange?: number;
-    searchText?: string;
-    sortField?: string;
-    sortOrder?: string;
+    appId?: number;
     userId?: number;
+    notId?: number;
+    searchText?: string;
   };
 
   type ScoringResultUpdateRequest = {
     id?: number;
-    resultDesc?: string;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultProp?: string[];
     resultScoreRange?: number;
   };
 
   type ScoringResultVO = {
-    appId?: number;
-    createTime?: string;
     id?: number;
-    resultDesc?: string;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultProp?: string[];
     resultScoreRange?: number;
+    appId?: number;
+    userId?: number;
+    createTime?: string;
     updateTime?: string;
     user?: UserVO;
-    userId?: number;
   };
 
   type SseEmitter = {
     timeout?: number;
   };
 
-  type uploadFileUsingPOSTParams = {
+  type uploadFileParams = {
+    uploadFileRequest: UploadFileRequest;
+  };
+
+  type UploadFileRequest = {
     biz?: string;
   };
 
   type User = {
-    createTime?: string;
     id?: number;
-    isDelete?: number;
-    mpOpenId?: string;
-    unionId?: string;
-    updateTime?: string;
     userAccount?: string;
-    userAvatar?: string;
-    userName?: string;
     userPassword?: string;
+    unionId?: string;
+    mpOpenId?: string;
+    userName?: string;
+    userAvatar?: string;
     userProfile?: string;
     userRole?: string;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
   };
 
   type UserAddRequest = {
+    userName?: string;
     userAccount?: string;
     userAvatar?: string;
-    userName?: string;
     userRole?: string;
   };
 
   type UserAnswer = {
-    appId?: number;
+    id: number;
+    appId: number;
     appType?: number;
+    scoringStrategy?: number;
     choices?: string;
-    createTime?: string;
-    id?: number;
-    isDelete?: number;
-    resultDesc?: string;
     resultId?: number;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultScore?: number;
-    scoringStrategy?: number;
-    updateTime?: string;
     userId?: number;
+    createTime?: string;
+    updateTime?: string;
+    isDelete?: number;
   };
 
   type UserAnswerAddRequest = {
+    id?: number;
     appId?: number;
     choices?: string[];
-    id?: number;
     userId?: number;
   };
 
   type UserAnswerEditRequest = {
+    id?: number;
     appId?: number;
     choices?: string[];
-    id?: number;
   };
 
   type UserAnswerQueryRequest = {
-    appId?: number;
-    appType?: number;
     current?: number;
-    id?: number;
-    notId?: number;
     pageSize?: number;
-    resultDesc?: string;
-    resultId?: number;
-    resultName?: string;
-    resultPicture?: string;
-    resultScore?: number;
-    scoringStrategy?: number;
-    searchText?: string;
     sortField?: string;
     sortOrder?: string;
+    id?: number;
+    appId?: number;
+    appType?: number;
+    scoringStrategy?: number;
+    resultId?: number;
+    resultName?: string;
+    resultDesc?: string;
+    resultPicture?: string;
+    resultScore?: number;
     userId?: number;
+    notId?: number;
+    searchText?: string;
   };
 
   type UserAnswerUpdateRequest = {
+    id?: number;
     appId?: number;
     choices?: string[];
-    id?: number;
   };
 
   type UserAnswerVO = {
+    id?: number;
     appId?: number;
     appType?: 'SCORING' | 'TEST';
+    scoringStrategy?: 'CUSTOM' | 'AI';
     choices?: string[];
-    createTime?: string;
-    id?: number;
-    resultDesc?: string;
     resultId?: number;
     resultName?: string;
+    resultDesc?: string;
     resultPicture?: string;
     resultScore?: number;
-    scoringStrategy?: 'CUSTOM' | 'AI';
+    userId?: number;
+    createTime?: string;
     updateTime?: string;
     user?: UserVO;
-    userId?: number;
   };
 
   type UserLoginRequest = {
@@ -778,43 +811,43 @@ declare namespace API {
 
   type UserQueryRequest = {
     current?: number;
-    id?: number;
-    mpOpenId?: string;
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
+    id?: number;
     unionId?: string;
+    mpOpenId?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
   };
 
   type UserRegisterRequest = {
-    checkPassword?: string;
     userAccount?: string;
     userPassword?: string;
+    checkPassword?: string;
   };
 
   type UserUpdateMyRequest = {
-    userAvatar?: string;
     userName?: string;
+    userAvatar?: string;
     userProfile?: string;
   };
 
   type UserUpdateRequest = {
     id?: number;
-    userAvatar?: string;
     userName?: string;
+    userAvatar?: string;
     userProfile?: string;
     userRole?: string;
   };
 
   type UserVO = {
-    createTime?: string;
     id?: number;
-    userAvatar?: string;
     userName?: string;
+    userAvatar?: string;
     userProfile?: string;
     userRole?: string;
+    createTime?: string;
   };
 }

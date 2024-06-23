@@ -34,8 +34,8 @@
 <script setup lang="ts">
 import { defineProps, ref, withDefaults } from "vue";
 import API from "@/api";
-import { aiGenerateQuestionUsingPost } from "@/api/questionController";
 import { Message } from "@arco-design/web-vue";
+import { aiGenerateQuestion } from "@/api/questionController";
 
 const visible = ref(false);
 const loading = ref(false);
@@ -60,7 +60,7 @@ const handleClick = () => {
 };
 const handleOk = async () => {
   loading.value = true;
-  const res = await aiGenerateQuestionUsingPost(data.value);
+  const res = await aiGenerateQuestion(data.value);
   if (res.data.code === 0 && res.data.data) {
     props.onSuccess(res.data.data);
     visible.value = false;

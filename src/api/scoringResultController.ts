@@ -2,12 +2,12 @@
 /* eslint-disable */
 import request from '@/utils/request';
 
-/** addScoringResult POST /api/scoringResult/add */
-export async function addScoringResultUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/add */
+export async function addScoringResult(
   body: API.ScoringResultAddRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseLong_>('/api/scoringResult/add', {
+  return request<API.BaseResponseLong>('/scoringResult/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,12 +17,12 @@ export async function addScoringResultUsingPost(
   });
 }
 
-/** deleteScoringResult POST /api/scoringResult/delete */
-export async function deleteScoringResultUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/delete */
+export async function deleteScoringResult(
   body: API.DeleteRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/scoringResult/delete', {
+  return request<API.BaseResponseBoolean>('/scoringResult/delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,12 +32,12 @@ export async function deleteScoringResultUsingPost(
   });
 }
 
-/** editScoringResult POST /api/scoringResult/edit */
-export async function editScoringResultUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/edit */
+export async function editScoringResult(
   body: API.ScoringResultEditRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/scoringResult/edit', {
+  return request<API.BaseResponseBoolean>('/scoringResult/edit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -47,13 +47,13 @@ export async function editScoringResultUsingPost(
   });
 }
 
-/** getScoringResultVOById GET /api/scoringResult/get/vo */
-export async function getScoringResultVoByIdUsingGet(
+/** 此处后端没有提供注释 GET /scoringResult/get/vo */
+export async function getScoringResultVoById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getScoringResultVOByIdUsingGETParams,
+  params: API.getScoringResultVOByIdParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseScoringResultVO_>('/api/scoringResult/get/vo', {
+  return request<API.BaseResponseScoringResultVO>('/scoringResult/get/vo', {
     method: 'GET',
     params: {
       ...params,
@@ -62,12 +62,12 @@ export async function getScoringResultVoByIdUsingGet(
   });
 }
 
-/** listScoringResultByPage POST /api/scoringResult/list/page */
-export async function listScoringResultByPageUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/list/page */
+export async function listScoringResultByPage(
   body: API.ScoringResultQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageScoringResult_>('/api/scoringResult/list/page', {
+  return request<API.BaseResponsePageScoringResult>('/scoringResult/list/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -77,12 +77,12 @@ export async function listScoringResultByPageUsingPost(
   });
 }
 
-/** listScoringResultVOByPage POST /api/scoringResult/list/page/vo */
-export async function listScoringResultVoByPageUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/list/page/vo */
+export async function listScoringResultVoByPage(
   body: API.ScoringResultQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageScoringResultVO_>('/api/scoringResult/list/page/vo', {
+  return request<API.BaseResponsePageScoringResultVO>('/scoringResult/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -92,12 +92,12 @@ export async function listScoringResultVoByPageUsingPost(
   });
 }
 
-/** listMyScoringResultVOByPage POST /api/scoringResult/my/list/page/vo */
-export async function listMyScoringResultVoByPageUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/my/list/page/vo */
+export async function listMyScoringResultVoByPage(
   body: API.ScoringResultQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageScoringResultVO_>('/api/scoringResult/my/list/page/vo', {
+  return request<API.BaseResponsePageScoringResultVO>('/scoringResult/my/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -107,12 +107,12 @@ export async function listMyScoringResultVoByPageUsingPost(
   });
 }
 
-/** updateScoringResult POST /api/scoringResult/update */
-export async function updateScoringResultUsingPost(
+/** 此处后端没有提供注释 POST /scoringResult/update */
+export async function updateScoringResult(
   body: API.ScoringResultUpdateRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/scoringResult/update', {
+  return request<API.BaseResponseBoolean>('/scoringResult/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -65,7 +65,6 @@
 </template>
 
 <script setup lang="ts">
-import { getAppVoByIdUsingGet } from "@/api/appController";
 import { Message } from "@arco-design/web-vue";
 import { withDefaults, defineProps, ref, watchEffect, computed } from "vue";
 import API from "@/api";
@@ -73,6 +72,7 @@ import { AppTypeMap, ScoringStrategyMap } from "@/constant/app";
 import dayjs from "dayjs";
 import { useLoginUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
+import { getAppVoById } from "@/api/appController";
 
 const router = useRouter();
 
@@ -95,7 +95,7 @@ const isOwner = computed(() => {
 });
 
 const loadData = async () => {
-  const res = await getAppVoByIdUsingGet({ id: props.id });
+  const res = await getAppVoById({ id: props.id });
   if (res.data.code === 0) {
     data.value = res.data.data || {};
   } else {

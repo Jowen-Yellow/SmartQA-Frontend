@@ -54,8 +54,8 @@ import API from "@/api";
 import { Message } from "@arco-design/web-vue";
 import dayjs from "dayjs";
 import {
-  deleteScoringResultUsingPost,
-  listScoringResultByPageUsingPost,
+  deleteScoringResult,
+  listScoringResultByPage,
 } from "@/api/scoringResultController";
 import ScoringResult = API.ScoringResult;
 
@@ -80,7 +80,7 @@ const dataList = ref<ScoringResult[]>();
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listScoringResultByPageUsingPost(searchParams.value);
+  const res = await listScoringResultByPage(searchParams.value);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = Number(res.data.data?.total) || 0;
@@ -90,7 +90,7 @@ const loadData = async () => {
 };
 
 const doDelete = async (id: number) => {
-  const res = await deleteScoringResultUsingPost({ id });
+  const res = await deleteScoringResult({ id });
   if (res.data.code === 0) {
     Message.success("删除成功");
     loadData().then((r) => r);

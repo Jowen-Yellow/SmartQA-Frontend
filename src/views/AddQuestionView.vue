@@ -21,7 +21,7 @@
             type="primary"
             shape="round"
             size="small"
-            @click="() => addQuestion(questionContent.length)"
+            @click="() => appendQuestion(questionContent.length)"
             >添加题目
           </a-button>
           <AiGenerateQuestionDrawer
@@ -142,32 +142,36 @@
 
 <script setup lang="ts">
 import { defineProps, ref, watchEffect, withDefaults } from "vue";
-import API from "@/api";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
-import {
-  addQuestionUsingPost,
-  editQuestionUsingPost,
-  listQuestionVoByPageUsingPost,
-} from "@/api/questionController";
 import AiGenerateQuestionDrawer from "@/components/AiGenerateQuestionDrawer.vue";
+import {
+  addQuestion,
+  editQuestion,
+  listQuestionVoByPage,
+} from "@/api/questionController";
 
 const router = useRouter();
 
+// eslint-disable-next-line no-undef
 const question = ref<API.QuestionVO>({});
 
+// eslint-disable-next-line no-undef
 const questionContent = ref<API.QuestionContentDTO[]>([]);
 
 const onAiGenerateQuestionSuccess = (
+  // eslint-disable-next-line no-undef
   aiQuestionContent: API.QuestionContentDTO[]
 ) => {
   questionContent.value = [...questionContent.value, ...aiQuestionContent];
 };
+// eslint-disable-next-line no-undef
 const onSSEMessage = (result: API.QuestionContentDTO) => {
   questionContent.value.push(result);
 };
 
-const addQuestion = (index: number) => {
+const appendQuestion = (index: number) => {
+  // eslint-disable-next-line no-undef
   const question: API.QuestionContentDTO = {
     title: "",
     options: [],
@@ -194,6 +198,7 @@ const deleteQuestion = (index: number) => {
 };
 
 const addOption = (questionIndex: number) => {
+  // eslint-disable-next-line no-undef
   const option: API.Option = {
     key: "",
     result: "",
@@ -236,7 +241,7 @@ const props = withDefaults(defineProps<Props>(), {});
 const handleSubmit = async () => {
   if (!question.value.id) {
     // 创建题目
-    const res = await addQuestionUsingPost({
+    const res = await addQuestion({
       appId: props.id,
       questionContent: questionContent.value,
     });
@@ -250,7 +255,8 @@ const handleSubmit = async () => {
     }
   } else {
     // 修改题目
-    const res = await editQuestionUsingPost({
+    // eslint-disable-next-line no-undef
+    const res = await editQuestion({
       id: question.value.id,
       questionContent: questionContent.value,
     });
@@ -267,7 +273,7 @@ const handleSubmit = async () => {
 
 const loadData = async () => {
   if (!props.id) return;
-  const res = await listQuestionVoByPageUsingPost({
+  const res = await listQuestionVoByPage({
     appId: props.id,
     current: 1,
     pageSize: 1,

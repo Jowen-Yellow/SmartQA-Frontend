@@ -94,11 +94,7 @@ import {
   ScoringStrategyEnum,
   ScoringStrategyMap,
 } from "@/constant/app";
-import {
-  addAppUsingPost,
-  editAppUsingPost,
-  getAppVoByIdUsingGet,
-} from "@/api/appController";
+import { addApp, editApp, getAppVoById } from "@/api/appController";
 
 const router = useRouter();
 
@@ -112,7 +108,7 @@ let form = ref<API.AppAddRequest>({
 const handleSubmit = async () => {
   if (props.id) {
     // 修改应用
-    const res = await editAppUsingPost(form.value);
+    const res = await editApp(form.value);
     if (res.data.code === 0) {
       Message.success("修改成功，即将跳转详情页");
       setTimeout(() => {
@@ -123,7 +119,7 @@ const handleSubmit = async () => {
     }
   } else {
     // 创建应用
-    const res = await addAppUsingPost(form.value);
+    const res = await addApp(form.value);
     if (res.data.code === 0) {
       Message.success("创建成功，即将跳转详情页");
       setTimeout(() => {
@@ -145,7 +141,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const loadData = async () => {
   if (!props.id) return;
-  const res = await getAppVoByIdUsingGet({ id: props.id });
+  const res = await getAppVoById({ id: props.id });
   if (res.data.code === 0 && res.data.data) {
     form.value = res.data.data;
   } else {

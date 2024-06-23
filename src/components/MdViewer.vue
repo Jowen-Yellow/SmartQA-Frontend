@@ -1,5 +1,5 @@
 <template>
-  <Viewer :value="value" :plugins="plugins" @change="handleChange" />
+  <Viewer :value="value" :plugins="plugins" />
 </template>
 
 <script setup lang="ts">
@@ -20,6 +20,7 @@ const plugins = [
 /**
  * 给组件指定初始值
  */
+// eslint-disable-next-line no-undef
 const props = withDefaults(defineProps<Props>(), {
   value: () => "",
 });

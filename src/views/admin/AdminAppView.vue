@@ -82,11 +82,7 @@ import { ref, watchEffect } from "vue";
 import API from "@/api";
 import { Message, TableColumnData } from "@arco-design/web-vue";
 import dayjs from "dayjs";
-import {
-  deleteAppUsingPost,
-  listAppByPageUsingPost,
-  updateAppUsingPost,
-} from "@/api/appController";
+import { deleteApp, listAppByPage, updateApp } from "@/api/appController";
 import {
   AppTypeMap,
   ReviewStatusEnum,
@@ -116,7 +112,7 @@ const dataList = ref<App[]>();
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listAppByPageUsingPost(searchParams.value);
+  const res = await listAppByPage(searchParams.value);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = Number(res.data.data?.total) || 0;
@@ -126,7 +122,7 @@ const loadData = async () => {
 };
 
 const doDelete = async (id: number) => {
-  const res = await deleteAppUsingPost({ id });
+  const res = await deleteApp({ id });
   if (res.data.code === 0) {
     Message.success("删除成功");
     loadData().then((r) => r);
@@ -140,7 +136,7 @@ const doReview = async (
   reviewStatus: ReviewStatusEnum,
   reviewMessage: string
 ) => {
-  const res = await updateAppUsingPost({
+  const res = await updateApp({
     ...app,
     reviewStatus,
     reviewMessage,

@@ -2,12 +2,9 @@
 /* eslint-disable */
 import request from '@/utils/request';
 
-/** addQuestion POST /api/question/add */
-export async function addQuestionUsingPost(
-  body: API.QuestionAddRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponseLong_>('/api/question/add', {
+/** 此处后端没有提供注释 POST /question/add */
+export async function addQuestion(body: API.QuestionAddRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponseLong>('/question/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,12 +14,12 @@ export async function addQuestionUsingPost(
   });
 }
 
-/** aiGenerateQuestion POST /api/question/ai_generate */
-export async function aiGenerateQuestionUsingPost(
+/** 此处后端没有提供注释 POST /question/ai_generate */
+export async function aiGenerateQuestion(
   body: API.AiGenerateQuestionRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseListQuestionContentDTO_>('/api/question/ai_generate', {
+  return request<API.BaseResponseListQuestionContentDTO>('/question/ai_generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,27 +29,26 @@ export async function aiGenerateQuestionUsingPost(
   });
 }
 
-/** aiGenerateQuestionSSE GET /api/question/ai_generate/sse */
-export async function aiGenerateQuestionSseUsingGet(
+/** 此处后端没有提供注释 GET /question/ai_generate/sse */
+export async function aiGenerateQuestionSse(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.aiGenerateQuestionSSEUsingGETParams,
+  params: API.aiGenerateQuestionSSEParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.SseEmitter>('/api/question/ai_generate/sse', {
+  return request<API.SseEmitter>('/question/ai_generate/sse', {
     method: 'GET',
     params: {
       ...params,
+      aiGenerateQuestionRequest: undefined,
+      ...params['aiGenerateQuestionRequest'],
     },
     ...(options || {}),
   });
 }
 
-/** deleteQuestion POST /api/question/delete */
-export async function deleteQuestionUsingPost(
-  body: API.DeleteRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponseBoolean_>('/api/question/delete', {
+/** 此处后端没有提供注释 POST /question/delete */
+export async function deleteQuestion(body: API.DeleteRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponseBoolean>('/question/delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -62,12 +58,12 @@ export async function deleteQuestionUsingPost(
   });
 }
 
-/** editQuestion POST /api/question/edit */
-export async function editQuestionUsingPost(
+/** 此处后端没有提供注释 POST /question/edit */
+export async function editQuestion(
   body: API.QuestionEditRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/question/edit', {
+  return request<API.BaseResponseBoolean>('/question/edit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -77,13 +73,13 @@ export async function editQuestionUsingPost(
   });
 }
 
-/** getQuestionVOById GET /api/question/get/vo */
-export async function getQuestionVoByIdUsingGet(
+/** 此处后端没有提供注释 GET /question/get/vo */
+export async function getQuestionVoById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getQuestionVOByIdUsingGETParams,
+  params: API.getQuestionVOByIdParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseQuestionVO_>('/api/question/get/vo', {
+  return request<API.BaseResponseQuestionVO>('/question/get/vo', {
     method: 'GET',
     params: {
       ...params,
@@ -92,12 +88,12 @@ export async function getQuestionVoByIdUsingGet(
   });
 }
 
-/** listQuestionByPage POST /api/question/list/page */
-export async function listQuestionByPageUsingPost(
+/** 此处后端没有提供注释 POST /question/list/page */
+export async function listQuestionByPage(
   body: API.QuestionQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageQuestion_>('/api/question/list/page', {
+  return request<API.BaseResponsePageQuestion>('/question/list/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -107,12 +103,12 @@ export async function listQuestionByPageUsingPost(
   });
 }
 
-/** listQuestionVOByPage POST /api/question/list/page/vo */
-export async function listQuestionVoByPageUsingPost(
+/** 此处后端没有提供注释 POST /question/list/page/vo */
+export async function listQuestionVoByPage(
   body: API.QuestionQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageQuestionVO_>('/api/question/list/page/vo', {
+  return request<API.BaseResponsePageQuestionVO>('/question/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -122,12 +118,12 @@ export async function listQuestionVoByPageUsingPost(
   });
 }
 
-/** listMyQuestionVOByPage POST /api/question/my/list/page/vo */
-export async function listMyQuestionVoByPageUsingPost(
+/** 此处后端没有提供注释 POST /question/my/list/page/vo */
+export async function listMyQuestionVoByPage(
   body: API.QuestionQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageQuestionVO_>('/api/question/my/list/page/vo', {
+  return request<API.BaseResponsePageQuestionVO>('/question/my/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -137,12 +133,12 @@ export async function listMyQuestionVoByPageUsingPost(
   });
 }
 
-/** updateQuestion POST /api/question/update */
-export async function updateQuestionUsingPost(
+/** 此处后端没有提供注释 POST /question/update */
+export async function updateQuestion(
   body: API.QuestionUpdateRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseBoolean_>('/api/question/update', {
+  return request<API.BaseResponseBoolean>('/question/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

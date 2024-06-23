@@ -51,13 +51,10 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import API from "@/api";
-import {
-  deleteUserUsingPost,
-  listUserByPageUsingPost,
-} from "@/api/userController";
-import User = API.User;
+import { deleteUser, listUserByPage } from "@/api/userController";
 import { Message } from "@arco-design/web-vue";
 import dayjs from "dayjs";
+import User = API.User;
 
 // 搜索
 const searchForm = ref<API.UserQueryRequest>({
@@ -80,7 +77,7 @@ const dataList = ref<User[]>();
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listUserByPageUsingPost(searchParams.value);
+  const res = await listUserByPage(searchParams.value);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = Number(res.data.data?.total) || 0;
@@ -90,7 +87,7 @@ const loadData = async () => {
 };
 
 const doDelete = async (id: number) => {
-  const res = await deleteUserUsingPost({ id });
+  const res = await deleteUser({ id });
   if (res.data.code === 0) {
     Message.success("删除成功");
     loadData().then((r) => r);
@@ -124,7 +121,7 @@ const columns = [
   {
     title: "头像",
     dataIndex: "userAvatar",
-    align: "center",
+    align: "center" as const,
     slotName: "userAvatar",
   },
   {
@@ -148,7 +145,7 @@ const columns = [
   {
     title: "操作",
     dataIndex: "operation",
-    align: "center",
+    align: "center" as const,
     slotName: "operation",
   },
 ];

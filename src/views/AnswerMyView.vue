@@ -64,11 +64,11 @@ import API from "@/api";
 import { Message } from "@arco-design/web-vue";
 import dayjs from "dayjs";
 import { AppTypeMap, ScoringStrategyMap } from "@/constant/app";
-import UserAnswer = API.UserAnswer;
 import {
-  deleteUserAnswerUsingPost,
-  listUserAnswerByPageUsingPost,
+  deleteUserAnswer,
+  listUserAnswerByPage,
 } from "@/api/userAnswerController";
+import UserAnswer = API.UserAnswer;
 
 // 搜索
 const searchForm = ref<API.UserAnswerQueryRequest>({
@@ -91,7 +91,7 @@ const dataList = ref<UserAnswer[]>();
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listUserAnswerByPageUsingPost(searchParams.value);
+  const res = await listUserAnswerByPage(searchParams.value);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = Number(res.data.data?.total) || 0;
@@ -101,7 +101,7 @@ const loadData = async () => {
 };
 
 const doDelete = async (id: number) => {
-  const res = await deleteUserAnswerUsingPost({ id });
+  const res = await deleteUserAnswer({ id });
   if (res.data.code === 0) {
     Message.success("删除成功");
     loadData().then((r) => r);

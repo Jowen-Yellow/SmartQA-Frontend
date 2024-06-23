@@ -17,12 +17,19 @@ import AddScoringResultView from "@/views/AddScoringResultView.vue";
 import AnswerDoView from "@/views/AnswerDoView.vue";
 import AnswerResultView from "@/views/AnswerResultView.vue";
 import AnswerMyView from "@/views/AnswerMyView.vue";
+import AppStatisticsView from "@/views/admin/AppStatisticsView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "主页",
     component: HomeView,
+  },
+  {
+    path: "/app/statistics",
+    name: "APP统计分析",
+    props: true,
+    component: AppStatisticsView,
   },
   {
     path: "/app/detail/:id",

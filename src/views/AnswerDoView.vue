@@ -55,14 +55,14 @@
 <script setup lang="ts">
 import { defineProps, reactive, ref, watchEffect, withDefaults } from "vue";
 import API from "@/api";
-import { listQuestionVoByPageUsingPost } from "@/api/questionController";
 import { Message } from "@arco-design/web-vue";
-import { getAppVoByIdUsingGet } from "@/api/appController";
 import { useRouter } from "vue-router";
 import {
-  addUserAnswerUsingPost,
-  generateUserAnswerIdUsingGet,
+  addUserAnswer,
+  generateUserAnswerId,
 } from "@/api/userAnswerController";
+import { getAppVoById } from "@/api/appController";
+import { listQuestionVoByPage } from "@/api/questionController";
 
 const router = useRouter();
 
@@ -88,7 +88,7 @@ const id = ref<number>();
 
 const checkResult = async () => {
   loading.value = true;
-  const res = await addUserAnswerUsingPost({
+  const res = await addUserAnswer({
     appId: props.appId,
     choices: answerList,
     id: id.value,
@@ -114,7 +114,7 @@ const loadData = async () => {
   await loadQuestion();
 };
 const loadApp = async () => {
-  const res = await getAppVoByIdUsingGet({ id: props.appId });
+  const res = await getAppVoById({ id: props.appId });
   if (res.data.code === 0) {
     app.value = res.data.data ?? {};
   } else {
@@ -122,7 +122,7 @@ const loadApp = async () => {
   }
 };
 const loadQuestion = async () => {
-  const res = await listQuestionVoByPageUsingPost({
+  const res = await listQuestionVoByPage({
     appId: props.appId,
     current: 1,
     pageSize: 1,
@@ -138,7 +138,7 @@ const loadQuestion = async () => {
 };
 
 const generateId = async () => {
-  const res = await generateUserAnswerIdUsingGet();
+  const res = await generateUserAnswerId();
   if (res.data.code === 0) {
     id.value = res.data.data;
   } else {
