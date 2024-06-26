@@ -32,7 +32,9 @@
             >
               开始答题
             </a-button>
-            <a-button size="small" shape="round">分享应用</a-button>
+            <a-button size="small" shape="round" @click="doShare"
+              >分享应用
+            </a-button>
             <a-button
               v-if="isOwner"
               size="small"
@@ -62,19 +64,34 @@
       </a-col>
     </a-row>
   </a-card>
+  <ShareModal :link="link" ref="shareModalRef" />
 </template>
 
 <script setup lang="ts">
 import { Message } from "@arco-design/web-vue";
-import { withDefaults, defineProps, ref, watchEffect, computed } from "vue";
+import { computed, defineProps, ref, watchEffect, withDefaults } from "vue";
 import API from "@/api";
 import { AppTypeMap, ScoringStrategyMap } from "@/constant/app";
 import dayjs from "dayjs";
 import { useLoginUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import { getAppVoById } from "@/api/appController";
+import ShareModal from "@/components/ShareModal.vue";
 
 const router = useRouter();
+const data = ref<API.AppVO>({});
+
+const shareModalRef = ref();
+const link = computed(
+  () => `${location.protocol}//${location.host}/app/detail/${data.value.id}`
+);
+
+const doShare = (e: Event) => {
+  if (shareModalRef.value) {
+    shareModalRef.value.handleOpen();
+  }
+  e.stopPropagation();
+};
 
 interface Props {
   id: number;
@@ -83,8 +100,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   id: () => 0,
 });
-
-const data = ref<API.AppVO>({});
 
 // 获取登录用户
 const loginUserStore = useLoginUserStore();

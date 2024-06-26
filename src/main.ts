@@ -8,3 +8,4 @@ import "@/access";
 
 const pinia = createPinia();
 createApp(App).use(ArcoVue).use(pinia).use(router).mount("#app");
+console.log(process.env);
