@@ -32,7 +32,7 @@
     }"
   >
     <template #userAvatar="{ record }">
-      <a-image width="50" :src="record.userAvatar" alt="" />
+      <a-image width="50" :src="userAvatarMap.get(record.id)" alt="" />
     </template>
     <template #createTime="{ record }">
       {{ dayjs(record.createTime).format("YYYY-MM-DD HH:mm:ss") }}
@@ -54,6 +54,7 @@ import API from "@/api";
 import { deleteUser, listUserByPage } from "@/api/userController";
 import { Message } from "@arco-design/web-vue";
 import dayjs from "dayjs";
+import { getFileUrl } from "@/api/fileController";
 import User = API.User;
 
 // 搜索
@@ -73,7 +74,7 @@ const searchParams = ref<API.UserQueryRequest>({
   current: 1,
   pageSize: 5,
 });
-const dataList = ref<User[]>();
+const dataList = ref<User[]>([]);
 const total = ref<number>();
 
 const loadData = async () => {
@@ -107,6 +108,22 @@ const pageChange = (page: number) => {
 // 监听loadData中的变量，如果有变化则重新渲染页面
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const userAvatarMap = ref<Map<number, string>>(new Map());
+const loadUserAvatar = async (filePath: string, key: number) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    userAvatarMap.value.set(key, res.data.data);
+  }
+};
+watchEffect(() => {
+  for (let data of dataList.value) {
+    if (data.userAvatar && data.id) {
+      loadUserAvatar(data.userAvatar, data.id);
+    }
+  }
 });
 
 const columns = [

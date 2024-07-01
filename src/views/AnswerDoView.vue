@@ -33,7 +33,7 @@
           <a-popconfirm content="确定提交结果吗？" @ok="checkResult">
             <a-button
               :loading="loading"
-              v-if="current === questionContent.length"
+              v-if="current === questionContent.length && currentAnswer"
               shape="round"
               type="primary"
               >查看结果

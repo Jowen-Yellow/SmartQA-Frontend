@@ -28,11 +28,7 @@
         </p>
       </a-col>
       <a-col flex="300px">
-        <a-image
-          width="100%"
-          :src="data.resultPicture"
-          :alt="data.resultName"
-        />
+        <a-image width="100%" :src="resultPicture" :alt="data.resultName" />
       </a-col>
     </a-row>
     <h1 v-else>无权限</h1>
@@ -46,6 +42,7 @@ import API from "@/api";
 import { useLoginUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import { getUserAnswerVoById } from "@/api/userAnswerController";
+import { getFileUrl } from "@/api/fileController";
 
 const router = useRouter();
 
@@ -78,6 +75,20 @@ const loadData = async () => {
 
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const resultPicture = ref<string>("");
+const loadResultPic = async (filePath: string) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    resultPicture.value = res.data.data;
+  }
+};
+watchEffect(() => {
+  if (data.value.resultPicture) {
+    loadResultPic(data.value.resultPicture);
+  }
 });
 </script>
 

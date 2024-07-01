@@ -16,7 +16,7 @@
         <img
           :style="{ width: '100%', transform: 'translateY(-20px)' }"
           :alt="app.appName"
-          :src="app.appIcon"
+          :src="appIcon"
         />
       </div>
     </template>
@@ -32,7 +32,7 @@
           <a-avatar
             :size="24"
             :style="{ marginRight: '8px' }"
-            :image-url="app.user?.userAvatar"
+            :image-url="userAvatar"
           />
           <a-typography-text
             >{{ app.user?.userName ?? "匿名用户" }}
@@ -47,9 +47,10 @@
 <script setup lang="ts">
 import { IconShareInternal, IconThumbUp } from "@arco-design/web-vue/es/icon";
 import API from "@/api";
-import { computed, defineProps, ref, withDefaults } from "vue";
+import { computed, defineProps, ref, watchEffect, withDefaults } from "vue";
 import { useRouter } from "vue-router";
 import ShareModal from "@/components/ShareModal.vue";
+import { getFileUrl } from "@/api/fileController";
 
 const router = useRouter();
 
@@ -76,6 +77,30 @@ const doShare = (e: Event) => {
   }
   e.stopPropagation();
 };
+
+// 加载图片
+const appIcon = ref<string>("");
+const userAvatar = ref<string>("");
+const loadAppIcon = async (filePath: string) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    appIcon.value = res.data.data;
+  }
+};
+const loadUserAvatar = async (filePath: string) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    userAvatar.value = res.data.data;
+  }
+};
+watchEffect(() => {
+  if (props.app.appIcon) {
+    loadAppIcon(props.app.appIcon);
+  }
+  if (props.app.user?.userAvatar) {
+    loadUserAvatar(props.app.user.userAvatar);
+  }
+});
 </script>
 
 <style scoped>

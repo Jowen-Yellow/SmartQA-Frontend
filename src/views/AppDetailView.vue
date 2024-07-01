@@ -16,7 +16,7 @@
         </p>
         <p>
           作者：
-          <a-avatar :size="24" :image-url="data.user?.userAvatar" />
+          <a-avatar :size="24" :image-url="userAvatar" />
           {{ data.user?.userName }}
         </p>
         <p>
@@ -60,7 +60,7 @@
         </p>
       </a-col>
       <a-col flex="300px">
-        <a-image width="100%" :src="data.appIcon" :alt="data.appName" />
+        <a-image width="100%" :src="appIcon" :alt="data.appName" />
       </a-col>
     </a-row>
   </a-card>
@@ -77,6 +77,7 @@ import { useLoginUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import { getAppVoById } from "@/api/appController";
 import ShareModal from "@/components/ShareModal.vue";
+import { getFileUrl } from "@/api/fileController";
 
 const router = useRouter();
 const data = ref<API.AppVO>({});
@@ -120,6 +121,30 @@ const loadData = async () => {
 
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const appIcon = ref<string>("");
+const userAvatar = ref<string>("");
+const loadAppIcon = async (filePath: string) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    appIcon.value = res.data.data;
+  }
+};
+const loadUserAvatar = async (filePath: string) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    userAvatar.value = res.data.data;
+  }
+};
+watchEffect(() => {
+  if (data.value.appIcon) {
+    loadAppIcon(data.value.appIcon);
+  }
+  if (data.value.user?.userAvatar) {
+    loadUserAvatar(data.value.user.userAvatar);
+  }
 });
 </script>
 

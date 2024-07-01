@@ -25,7 +25,14 @@
     </a-col>
     <a-col flex="100px">
       <div v-if="loginUser.id">
-        {{ loginUser.userName ?? "匿名用户" }}
+        <a-dropdown :popup-max-height="false">
+          {{ loginUser.userName ?? "匿名用户" }}
+          <IconDown />
+          <template #content>
+            <a-doption>设置</a-doption>
+            <a-doption @click="(ev) => logout()">退出登录</a-doption>
+          </template>
+        </a-dropdown>
       </div>
       <div v-else>
         <a-button type="primary" href="/user/login">登录</a-button>
@@ -42,6 +49,9 @@ import { useLoginUserStore } from "@/store/userStore";
 import { storeToRefs } from "pinia";
 import checkAccess from "@/access/checkAccess";
 import { AccessEnum } from "@/access/accessEnum";
+import { IconDown } from "@arco-design/web-vue/es/icon";
+import { userLogout } from "@/api/userController";
+import { Message } from "@arco-design/web-vue";
 
 const loginUserStore = useLoginUserStore();
 const loginUser = storeToRefs(loginUserStore).loginUser;
@@ -62,6 +72,17 @@ router.afterEach((to) => {
 
 const doMenuItemClick = (key: string) => {
   router.push({ path: key });
+};
+const logout = async () => {
+  const res = await userLogout();
+  if (res.data.code === 0) {
+    loginUserStore.fetchLoginUser().then(() => {
+      Message.success("退出登录成功");
+      router.push({ path: "/", replace: true });
+    });
+  } else {
+    Message.error(res.data.message as string);
+  }
 };
 </script>
 

@@ -32,7 +32,7 @@
     }"
   >
     <template #appIcon="{ record }">
-      <a-image width="50" :src="record.appIcon" alt="" />
+      <a-image width="50" :src="appIconMap.get(record.id)" alt="" />
     </template>
     <template #appType="{ record }">
       {{ AppTypeMap[record.appType as keyof typeof AppTypeMap] }}
@@ -89,6 +89,7 @@ import {
   ReviewStatusMap,
   ScoringStrategyMap,
 } from "@/constant/app";
+import { getFileUrl } from "@/api/fileController";
 import App = API.App;
 
 // 搜索
@@ -108,7 +109,7 @@ const searchParams = ref<API.AppQueryRequest>({
   current: 1,
   pageSize: 5,
 });
-const dataList = ref<App[]>();
+const dataList = ref<App[]>([]);
 const total = ref<number>();
 
 const loadData = async () => {
@@ -160,6 +161,22 @@ const pageChange = (page: number) => {
 // 监听loadData中的变量，如果有变化则重新渲染页面
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const appIconMap = ref<Map<number, string>>(new Map());
+const loadAppIcon = async (filePath: string, key: number) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    appIconMap.value.set(key, res.data.data);
+  }
+};
+watchEffect(() => {
+  for (let data of dataList.value) {
+    if (data.appIcon && data.id) {
+      loadAppIcon(data.appIcon, data.id);
+    }
+  }
 });
 
 const columns: TableColumnData[] = [

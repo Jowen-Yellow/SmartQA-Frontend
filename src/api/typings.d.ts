@@ -276,6 +276,10 @@ declare namespace API {
     id: number;
   };
 
+  type getFileUrlParams = {
+    filePath: string;
+  };
+
   type getPostVOByIdParams = {
     id: number;
   };
@@ -703,11 +707,7 @@ declare namespace API {
   };
 
   type uploadFileParams = {
-    uploadFileRequest: UploadFileRequest;
-  };
-
-  type UploadFileRequest = {
-    biz?: string;
+    biz: string;
   };
 
   type User = {

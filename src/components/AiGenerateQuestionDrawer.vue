@@ -54,6 +54,7 @@ const data = ref<API.AiGenerateQuestionRequest>({
   optionNumber: 4,
 });
 let yieldNumber = 0;
+let errorNumber = 0;
 
 const handleClick = () => {
   visible.value = true;
@@ -73,12 +74,7 @@ const handleOk = async () => {
 const handleOkSSE = () => {
   loading.value = true;
   const eventSource = new EventSource(
-    "http://localhost:8101/api/question/ai_generate/sse?appId=" +
-      props.appId +
-      "&questionNumber=" +
-      data.value.questionNumber +
-      "&optionNumber=" +
-      data.value.optionNumber
+    `${process.env.VUE_APP_API_URL}/question/ai_generate/sse?appId=${props.appId}&questionNumber=${data.value.questionNumber}&optionNumber=${data.value.optionNumber}`
   );
   eventSource.onmessage = (event) => {
     yieldNumber++;
@@ -93,9 +89,14 @@ const handleOkSSE = () => {
   };
   eventSource.onerror = (error) => {
     Message.error("生成失败：" + error);
-    eventSource.close();
-    loading.value = false;
-    yieldNumber = 0;
+    // 如果重试3次后失败，则关闭连接
+    errorNumber++;
+    if (errorNumber >= 3) {
+      eventSource.close();
+      loading.value = false;
+      errorNumber = 0;
+      yieldNumber = 0;
+    }
   };
 };
 const handleCancel = () => {

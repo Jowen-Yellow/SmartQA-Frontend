@@ -1,36 +1,36 @@
 <template>
   <div id="appStatistics">
-    <a-space direction="vertical" size="large">
-      <a-card style="width: 80vw">
-        <v-chart
-          :option="userAnswerCountOptions"
-          style="width: 70%; height: 300px"
-        />
-      </a-card>
-      <a-card style="width: 80vw">
-        <div style="text-align: right">
-          <a-space>
-            <span>应用ID</span>
-            <a-select
-              :options="appIdOptions"
-              v-model="appId"
-              style="width: 120px"
-              placeholder="请选择应用"
-            />
-          </a-space>
-        </div>
-        <v-chart
-          :option="userAnswerResultCountOptions"
-          style="width: 70%; height: 300px"
-        />
-      </a-card>
-    </a-space>
+    <a-row class="grid-demo" :gutter="24">
+      <a-col :span="12">
+        <a-card>
+          <v-chart :option="userAnswerCountOptions" style="height: 60vh" />
+        </a-card>
+      </a-col>
+      <a-col :span="12">
+        <a-card>
+          <div style="text-align: right">
+            <a-space>
+              <span>应用ID</span>
+              <a-select
+                :options="appIdOptions"
+                v-model="appId"
+                style="width: 120px"
+                placeholder="请选择应用"
+              />
+            </a-space>
+          </div>
+          <v-chart
+            :option="userAnswerResultCountOptions"
+            style="height: 60vh"
+          />
+        </a-card>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
 <script setup lang="ts">
 import VChart from "vue-echarts";
-import "echarts";
 import { computed, ref, watchEffect } from "vue";
 import {
   getAppAnswerCount,
@@ -46,17 +46,45 @@ const appId = ref<number>();
 const appIdOptions = computed(() => {
   return userAnswerCount.value?.map((data) => data.appId as number);
 });
-
 const userAnswerCountOptions = computed(() => ({
+  title: {
+    text: "用户回答数统计",
+  },
+  tooltip: {
+    trigger: "item",
+  },
   xAxis: {
     name: "应用ID",
-    type: "category",
     data: userAnswerCount.value?.map((data) => String(data.appId)),
+    axisLabel: {
+      show: false,
+      color: "#fff",
+    },
+    axisTick: {
+      show: false,
+    },
+    axisLine: {
+      show: false,
+    },
+    z: 10,
   },
   yAxis: {
     name: "回答数量",
-    type: "value",
+    axisLine: {
+      show: false,
+    },
+    axisTick: {
+      show: false,
+    },
+    axisLabel: {
+      color: "#999",
+    },
   },
+  dataZoom: [
+    {
+      type: "inside",
+    },
+  ],
   series: [
     {
       data: userAnswerCount.value?.map((data) => data.answerCount),
@@ -124,8 +152,4 @@ watchEffect(() => {
 });
 </script>
 
-<style scoped>
-#appStatistics {
-  width: 100%;
-}
-</style>
+<style scoped></style>

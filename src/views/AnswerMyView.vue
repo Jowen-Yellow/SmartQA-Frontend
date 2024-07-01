@@ -6,7 +6,7 @@
           class="searchInput"
           size="large"
           v-model="searchForm.resultName"
-          placeholder="问题内容"
+          placeholder="结果名称"
         />
         <a-button
           class="searchButton"
@@ -32,7 +32,7 @@
     }"
   >
     <template #resultPicture="{ record }">
-      <a-image width="50" :src="record.resultPicture" alt="" />
+      <a-image width="50" :src="resultPictureMap.get(record.id)" alt="" />
     </template>
     <template #appType="{ record }">
       {{ AppTypeMap[record.appType as keyof typeof AppTypeMap] }}
@@ -66,9 +66,13 @@ import dayjs from "dayjs";
 import { AppTypeMap, ScoringStrategyMap } from "@/constant/app";
 import {
   deleteUserAnswer,
-  listUserAnswerByPage,
+  listUserAnswerVoByPage,
 } from "@/api/userAnswerController";
-import UserAnswer = API.UserAnswer;
+import { getFileUrl } from "@/api/fileController";
+import { useLoginUserStore } from "@/store/userStore";
+import UserAnswerVO = API.UserAnswerVO;
+
+const loginUserStore = useLoginUserStore();
 
 // 搜索
 const searchForm = ref<API.UserAnswerQueryRequest>({
@@ -86,12 +90,13 @@ const doSearch = async () => {
 const searchParams = ref<API.UserAnswerQueryRequest>({
   current: 1,
   pageSize: 5,
+  userId: loginUserStore.loginUser.id,
 });
-const dataList = ref<UserAnswer[]>();
+const dataList = ref<UserAnswerVO[]>([]);
 const total = ref<number>();
 
 const loadData = async () => {
-  const res = await listUserAnswerByPage(searchParams.value);
+  const res = await listUserAnswerVoByPage(searchParams.value);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = Number(res.data.data?.total) || 0;
@@ -121,6 +126,22 @@ const pageChange = (page: number) => {
 // 监听loadData中的变量，如果有变化则重新渲染页面
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const resultPictureMap = ref<Map<number, string>>(new Map());
+const loadResultPic = async (filePath: string, key: number) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    resultPictureMap.value.set(key, res.data.data);
+  }
+};
+watchEffect(() => {
+  for (let data of dataList.value) {
+    if (data.resultPicture) {
+      loadResultPic(data.resultPicture, data.id!);
+    }
+  }
 });
 
 const columns = [

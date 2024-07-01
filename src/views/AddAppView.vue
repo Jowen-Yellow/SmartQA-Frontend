@@ -27,12 +27,13 @@
         />
       </a-form-item>
       <a-form-item field="appIcon" label="应用图标">
-        <a-input
-          class="input"
-          size="large"
-          v-model="form.appIcon"
-          placeholder="应用图标地址"
+        <ImgUploader
+          v-if="id"
+          biz="user_avatar"
+          :set-file-name="setFileName"
+          :default-img="form.appIcon"
         />
+        <ImgUploader v-else biz="user_avatar" :set-file-name="setFileName" />
       </a-form-item>
       <a-form-item field="appType" label="应用类型">
         <a-select
@@ -42,12 +43,21 @@
             'border-radius': '8px',
           }"
           v-model="form.appType"
+          @change="
+            (value) => {
+              currentAppType = value as number;
+            }
+          "
         >
           <a-option
             v-for="(value, key) in AppTypeMap"
             :key="value"
             :value="Number(key)"
             :label="value"
+            :disabled="
+              AppTypeEnum.SCORE.valueOf() === Number(key) &&
+              currentScoringStrategy === ScoringStrategyEnum.AI.valueOf()
+            "
           />
         </a-select>
       </a-form-item>
@@ -59,9 +69,16 @@
             'border-radius': '8px',
           }"
           v-model="form.scoringStrategy"
+          @change="value => {
+            currentScoringStrategy = value as number;
+          }"
         >
           <a-option
             v-for="(value, key) in ScoringStrategyMap"
+            :disabled="
+              ScoringStrategyEnum.AI.valueOf() === Number(key) &&
+              currentAppType === AppTypeEnum.SCORE.valueOf()
+            "
             :key="value"
             :value="Number(key)"
             :label="value"
@@ -95,6 +112,8 @@ import {
   ScoringStrategyMap,
 } from "@/constant/app";
 import { addApp, editApp, getAppVoById } from "@/api/appController";
+import ImgUploader from "@/components/ImgUploader.vue";
+import { getFileUrl } from "@/api/fileController";
 
 const router = useRouter();
 
@@ -105,6 +124,15 @@ let form = ref<API.AppAddRequest>({
   appType: AppTypeEnum.SCORE,
   scoringStrategy: ScoringStrategyEnum.CUSTOM,
 });
+
+const currentAppType = ref<number>(AppTypeEnum.SCORE.valueOf());
+const currentScoringStrategy = ref<number>(
+  ScoringStrategyEnum.CUSTOM.valueOf()
+);
+
+const setFileName = (fileName: string) => {
+  form.value.appIcon = fileName;
+};
 const handleSubmit = async () => {
   if (props.id) {
     // 修改应用
@@ -151,6 +179,20 @@ const loadData = async () => {
 
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const appIcon = ref<string>("");
+const loadAppIcon = async (filePath: string) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    appIcon.value = res.data.data;
+  }
+};
+watchEffect(() => {
+  if (form.value.appIcon) {
+    loadAppIcon(form.value.appIcon);
+  }
 });
 </script>
 

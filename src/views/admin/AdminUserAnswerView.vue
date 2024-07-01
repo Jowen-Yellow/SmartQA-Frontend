@@ -6,7 +6,7 @@
           class="searchInput"
           size="large"
           v-model="searchForm.resultName"
-          placeholder="问题内容"
+          placeholder="结果名称"
         />
         <a-button
           class="searchButton"
@@ -32,7 +32,7 @@
     }"
   >
     <template #resultPicture="{ record }">
-      <a-image width="50" :src="record.resultPicture" alt="" />
+      <a-image width="50" :src="resultPictureMap.get(record.id)" alt="" />
     </template>
     <template #appType="{ record }">
       {{ AppTypeMap[record.appType as keyof typeof AppTypeMap] }}
@@ -68,6 +68,7 @@ import {
   deleteUserAnswer,
   listUserAnswerByPage,
 } from "@/api/userAnswerController";
+import { getFileUrl } from "@/api/fileController";
 import UserAnswer = API.UserAnswer;
 
 // 搜索
@@ -87,7 +88,7 @@ const searchParams = ref<API.UserAnswerQueryRequest>({
   current: 1,
   pageSize: 5,
 });
-const dataList = ref<UserAnswer[]>();
+const dataList = ref<UserAnswer[]>([]);
 const total = ref<number>();
 
 const loadData = async () => {
@@ -121,6 +122,22 @@ const pageChange = (page: number) => {
 // 监听loadData中的变量，如果有变化则重新渲染页面
 watchEffect(() => {
   loadData();
+});
+
+// 加载图片
+const resultPictureMap = ref<Map<number, string>>(new Map());
+const loadResultPic = async (filePath: string, key: number) => {
+  const res = await getFileUrl({ filePath });
+  if (res.data.code === 0 && res.data.data) {
+    resultPictureMap.value.set(key, res.data.data);
+  }
+};
+watchEffect(() => {
+  for (let data of dataList.value) {
+    if (data.resultPicture) {
+      loadResultPic(data.resultPicture, data.id);
+    }
+  }
 });
 
 const columns = [

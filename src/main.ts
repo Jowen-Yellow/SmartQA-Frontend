@@ -5,7 +5,11 @@ import router from "./router";
 import "@arco-design/web-vue/dist/arco.css";
 import { createPinia } from "pinia";
 import "@/access";
+import echarts from "echarts";
 
+const myMixin = {
+  echarts: echarts,
+};
 const pinia = createPinia();
-createApp(App).use(ArcoVue).use(pinia).use(router).mount("#app");
+createApp(App).use(ArcoVue).use(pinia).use(router).mixin(myMixin).mount("#app");
 console.log(process.env);

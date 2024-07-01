@@ -30,6 +30,9 @@ const routes: Array<RouteRecordRaw> = [
     name: "APP统计分析",
     props: true,
     component: AppStatisticsView,
+    meta: {
+      access: AccessEnum.ADMIN,
+    },
   },
   {
     path: "/app/detail/:id",
@@ -38,6 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     component: AppDetailView,
     meta: {
       hideInMenu: true,
+      access: AccessEnum.LOGIN,
     },
   },
   {
@@ -45,6 +49,9 @@ const routes: Array<RouteRecordRaw> = [
     name: "创建App",
     props: true,
     component: AddAppView,
+    meta: {
+      access: AccessEnum.LOGIN,
+    },
   },
   {
     path: "/add/app/:id",
@@ -110,11 +117,11 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/admin",
-    name: "管理页面",
+    path: "/admin/user",
+    name: "用户管理",
     component: AdminUserView,
     meta: {
-      access: AccessEnum.NOT_LOGIN,
+      access: AccessEnum.ADMIN,
     },
   },
   {
@@ -122,7 +129,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "应用",
     component: AdminAppView,
     meta: {
-      access: AccessEnum.NOT_LOGIN,
+      access: AccessEnum.ADMIN,
     },
   },
   {
@@ -130,7 +137,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "问题",
     component: AdminQuestionView,
     meta: {
-      access: AccessEnum.NOT_LOGIN,
+      access: AccessEnum.ADMIN,
     },
   },
   {
@@ -138,7 +145,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "评分结果",
     component: AdminScoringResultView,
     meta: {
-      access: AccessEnum.NOT_LOGIN,
+      access: AccessEnum.ADMIN,
     },
   },
   {
@@ -146,7 +153,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "用户答案",
     component: AdminUserAnswerView,
     meta: {
-      access: AccessEnum.NOT_LOGIN,
+      access: AccessEnum.ADMIN,
     },
   },
   {
